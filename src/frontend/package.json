@@ -1,0 +1,25 @@
+{
+  "name": "learn-starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "proxy": "http://localhost:8080",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.12",
+    "axios": "^0.21.0",
+    "materialize-css": "^1.0.0-rc.2",
+    "next": "^10.0.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-elastic-carousel": "^0.9.5",
+    "styled-components": "^5.2.1"
+  }
+}

@@ -1,0 +1,31 @@
+* {
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: CentroSansPro-Light;
+    src: url('./static/CentroSansPro-Light.ttf');
+}
+
+@font-face {
+    font-family: CentroSansPro-Medium;
+    src: url('./static/CentroSansPro-Medium.ttf');
+}
+
+body {
+   background-image: linear-gradient(45deg, #1e1e1e, #4b4e54);
+   background-repeat: no-repeat;
+   min-height: 100vh;
+   overflow: hidden;
+   font-family: CentroSansPro-Medium;
+   color: #cce3fa;
+}
+
+input:-internal-autofill-selected {
+    border-radius: 6px!important;
+    -webkit-text-fill-color: rgb(226, 240, 255);
+    -webkit-box-shadow: 0 0 2px 1000px #242425 inset!important;
+    box-shadow: 0 0 2px 1000px #242425 inset!important;
+    transition: background-color 5000s ease-in-out 0s;
+    /* padding: 10px!important; */
+}

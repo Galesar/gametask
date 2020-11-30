@@ -1,0 +1,24 @@
+.mainPage {
+    border-width: 5.71px;
+    border-color:#cce3fa;
+    border-style: solid;
+    color:#cce3fa;
+    border-radius: 10px;
+    font-size: 24px;
+    margin: 10px;
+    padding: 3px 35px 3px 35px;
+}
+
+.mainPage:hover {
+    color:#242425;
+    background-color:#cce3fa;
+    transition: 0.2s;
+}
+
+.mainPageEmpty {
+        background: rgba(0,0,0,0);
+        color: #cce3fa;
+        margin: 0 10px 10px 10px;
+        padding: 5px 25px 5px 25px;
+        font-size: 20px;
+}

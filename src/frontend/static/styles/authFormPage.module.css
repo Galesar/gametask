@@ -1,0 +1,52 @@
+.timesButton a{
+    float: right;
+    padding-top: 20px;
+    color: #cce3fa!important;
+}
+
+.form {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 700px;
+    top: 35%;
+}
+
+.form h1 {
+    padding: 10px;
+}
+
+.form a {
+    font-size: 15px;
+    padding: 10px;
+    color:#cce3fa!important
+}
+
+.formRight {
+    float: right;
+}
+
+.formLeft {
+    float: left;
+}
+
+@media (max-width: 720px) {
+    .form {
+        width: 350px !important;
+        top: 25%;
+    }
+    .form a {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .form {
+        width: 550px;
+    }
+}
+
+.gmContainer {
+    width: auto;
+    height: 720px;
+}

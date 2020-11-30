@@ -1,0 +1,29 @@
+.circle {
+        border-width: 0px;
+        border-color: rgb(0, 0, 0);
+        border-style: solid;
+        border-style: solid;
+        border-width: 3px;
+        border-color: rgb(208, 231, 255);
+        border-radius: 50%;
+        background-color: rgb(0, 0, 0);   
+        width: 100px;
+        height: 100px;
+        /* right: 0px;
+        position: absolute; */
+  }
+
+  .profileContainer {
+    z-index: 1;
+    display: flex;
+    height: 100px;
+  }
+
+  .name {
+    position: absolute;
+    font-size: 50px;
+    right: 7%;
+    top: 10px;
+    color: white;
+    font-family: CentroSansPro-Light;
+  }

@@ -1,0 +1,15 @@
+.statContainer {
+    display: block;
+    height: auto;
+    width: 300px;
+}
+
+.statContainer h2 {
+    margin: 0;
+    font-size: 20px;
+    font-family: CentroSansPro-Light!important;
+}
+.statContainer h3 {
+    font-size: 40px;
+    font-family: CentroSansPro-Light!important;
+}

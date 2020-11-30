@@ -1,0 +1,62 @@
+.teamContainer {
+    display: flex;
+    margin: 3%;
+    position: relative;
+    align-items: center;
+    top: 60px;
+}
+
+.teamContainer h2{
+    float: left;
+    padding-left: 20px;
+    font-family: CentroSansPro-Light;
+    -moz-text-shadow:0 0 5px #cce3fa;
+    -webkit-text-shadow:0 0 5px #cce3fa;
+    text-shadow:0 0 5px #cce3fa;
+}
+
+.statContainer {
+    float: right;
+    position: relative;
+    bottom: 200px;
+}
+
+.topMembers {
+    position: relative;
+    left: 40%;
+    bottom: 90px;
+}
+
+.achievmentsContainer {
+    padding-top: 30px;
+    padding-left: 3%;
+    font-family: CentroSansPro-Light!important;
+}
+
+.achievmentsContainer span {
+    margin: 10px;
+    font-size: 50px;
+}
+
+.achievmentsContainer h2 {
+    font-size: 30px;
+    margin: 10px;
+}
+
+.boardContainer {
+    font-family: CentroSansPro-Light!important;
+    padding-left: 3%;
+    padding-top: 30px;
+}
+
+.boardCard {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    height: 130px;
+}
+
+.boardCardTasks {
+    display: grid;
+    font-size: 25px;
+}

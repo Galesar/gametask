@@ -1,0 +1,15 @@
+.carouselContainer {
+    position: absolute;
+    bottom: 10%;
+    /* padding-top: 25%; */
+}
+
+.profile {
+    top: 5%;
+    right: 10%;
+    position: absolute;
+}
+
+.profile span {
+    right: 120%;
+}

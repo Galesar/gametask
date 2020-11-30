@@ -1,0 +1,24 @@
+.projectCard {
+    position: relative;
+    width: 230px;
+    height: 35vh;
+    margin: 5px;
+    transition: 200ms;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(187, 201, 222);
+    border-radius: 10px;
+    background-color: rgb(204, 227, 250);
+}
+
+.active {
+    -moz-box-shadow:0 0 10px #cce3fa;
+    -webkit-box-shadow:0 0 10px #cce3fa;
+    box-shadow:0 0 10px #cce3fa;
+    height: 40vh !important;
+    width: 250px;
+    margin: 10px;
+    bottom: 35px;
+}
+  
+  

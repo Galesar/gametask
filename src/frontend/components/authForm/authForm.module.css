@@ -1,0 +1,72 @@
+.authForm {
+    position: relative;
+}
+
+.authForm label{
+    border-bottom: none;
+        border-width: 3px;
+        border-color: rgb(226, 240, 255);
+        border-style: solid;
+        border-radius: 10px;
+        width: 584px;
+        height: 70px;
+        font-size: 36px;
+        color: #cce3fa;
+}
+
+.authForm input {
+    color: #cce3fa;
+    font-family: CentroSansPro-Light;
+}
+
+.authForm input[type='email'] {
+    font-size: 30px!important;
+    background: transparent;
+}
+
+.authForm input[type="email"]::-webkit-input-placeholder {
+    color:  #cce3fa!important;
+    padding-left: 10px;
+}
+
+.authForm input[type="password"]::-webkit-input-placeholder {
+    color:  #cce3fa!important;
+    padding-left: 10px;
+}
+
+
+.authForm input[type='password'] {
+    font-size: 30px!important;
+}
+
+@media (max-width: 720px) {
+    .authForm input[type='email'] {
+        font-size: 20px!important;
+    }
+    .authForm input[type='password'] {
+        font-size: 20px!important;
+    }
+}
+
+.authForm input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+border-bottom: none;
+box-shadow: none;
+}
+
+.authForm input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: none;
+    box-shadow: none;
+}
+
+.authForm input[type='submit'] {
+    margin-top: 10px;
+    width: 100%;
+    height: 45px;
+    color: #242425;
+    font-size: 30px;
+    border-radius: 10px;
+    border-width: 3px;
+    border-color: #cce3fa;
+    border-style: solid;
+    background-color: #cce3fa;
+}
