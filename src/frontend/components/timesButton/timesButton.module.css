@@ -1,5 +1,6 @@
 .timesButton a{
     float: right;
-    padding-top: 20px;
     color: #cce3fa!important;
+    right: 3%;
+    position: absolute;
 }

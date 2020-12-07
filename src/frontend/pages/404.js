@@ -1,6 +1,21 @@
 export default function Custom404() {
     return (
-    <center><h1>404 - Page Not Found</h1>
-    <span>You find your page. Maybe.</span></center>
+      <div>
+        <a href="/">{"<--- Back..."}</a>
+        <style jsx global>
+          {`
+          body { 
+            background: url('/404.png')!important;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            background-size: cover!important
+          }
+          a {
+            color: white;
+            padding: 50px;
+          }
+          `}
+        </style>
+      </div>
     )
   }

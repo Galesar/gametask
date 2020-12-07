@@ -1,0 +1,155 @@
+.taskNameContainer {
+    display: flex;
+    margin: 3%;
+    position: relative;
+    align-items: center;
+    top: 60px;
+}
+
+.taskForm textarea {
+    color: #cce3fa!important;
+    font-size: 20px;
+    margin: 20px;
+    margin-top: 30px;
+    width: 100%;
+    height: 500px!important;
+    resize: none;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.taskNameContainer input[type="text"] {
+    color: #cce3fa;
+    border: none;
+    font-size: 30px;
+    margin-left: 20px;
+}
+
+.taskNameContainer input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: none!important;
+    box-shadow: none!important;
+}
+
+.formBody {
+    display: flex;
+    width: 100%!important;
+}
+
+.formBody label {
+    width: 40%;
+}
+
+.formBody select {
+    display: block!important;
+}
+
+.formBody .additionalOptions {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    width: 20%;
+    left: 30%;
+    margin-left: 10%;
+    margin: 20px;
+    margin-top: 30px;
+    border-style: solid;
+    border-color: #cce3fa;
+    border-width: 3px;
+    border-radius: 0.5em;
+}
+
+.formBody .additionalOptions span{
+    font-size: 30px;
+    position: relative;
+    top: 5px!important;
+    color: #cce3fa;
+}
+
+.formBody .additionalOptions select {
+    margin: 10px;
+    width: auto;
+    float: right;
+}
+
+.formBody .additionalOptions input[type='number'] {
+    width: 20%;
+    margin: 10px;    
+    float: right;
+    color: #cce3fa;
+    font-size: 30px;
+}
+
+.formBody .additionalOptions .priority span {
+    left: 41%;
+    position: relative;
+    top: 10px!important
+}
+
+.tagChip {
+  background-color: black;
+  color:  #cce3fa;
+  font-size: 14px;
+  border-radius: 30px;
+  height: 30px;
+  padding: 0 4px 0 1rem;
+  align-items: center;
+  margin: 0 0.3rem 0.3rem 0;
+  width: 100%;
+  display: flex;
+}
+
+.tagChip a {
+    background-color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    margin-left: 10px;
+    font-weight: bold;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tagContainer input {
+    width: 100%;
+    height: 45px;
+    padding: 0 1rem;
+    margin-top: 1rem;
+    box-sizing: border-box;
+    font: inherit;
+    border-radius: 0.2rem;
+    border: 2px solid #d4d5d6;
+    font-size: 20px;
+    -webkit-appearance: none;
+    color: #cce3fa
+}
+
+.tagContainer input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    box-shadow: none!important;
+    border-color: cornflowerblue;
+    outline: none;
+}
+
+.buttonsContainer {
+    float: right;
+    padding-top: 20px;
+    padding-right: 9%;
+}
+
+.buttonsContainer a {
+    border-width: 5.71px;
+    border-color: #cce3fa;
+    background-color: #cce3fa;
+    border-style: solid;
+    color:#242425;
+    border-radius: 10px;
+    font-size: 24px;
+    margin: 10px;
+    padding: 3px 35px 3px 35px;
+}

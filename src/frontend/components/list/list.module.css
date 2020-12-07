@@ -1,0 +1,40 @@
+.listContainer {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+
+}
+.listTitle {
+    font-size: 40px;
+    padding: 40px;
+    position: relative;
+    top: 20px;
+    text-decoration: none;
+    color: rgb(208, 231, 255);
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;  
+}
+
+.showButtonActive {
+    position: relative;
+    display: inline-flex;
+    right: 20px;
+    top: 20px;
+
+    width: 0;
+	height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+	border-top: 25px solid rgb(208, 231, 255);
+}
+
+.button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+  

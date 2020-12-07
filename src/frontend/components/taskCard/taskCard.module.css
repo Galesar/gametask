@@ -1,0 +1,9 @@
+.taskCard {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.taskCard span {
+    font-size: 20px!important;
+}

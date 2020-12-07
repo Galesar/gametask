@@ -1,0 +1,21 @@
+.boardNameContainer {
+    display: flex;
+    margin: 3%;
+    position: relative;
+    align-items: center;
+    top: 60px;
+}
+
+.boardNameContainer h2 {
+    float: left;
+    padding-left: 20px;
+    font-family: CentroSansPro-Light;
+    -moz-text-shadow:0 0 5px #cce3fa;
+    -webkit-text-shadow:0 0 5px #cce3fa;
+    text-shadow:0 0 5px #cce3fa;
+}
+
+.taskContainer {
+    padding: 20px;
+
+}
