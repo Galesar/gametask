@@ -13,7 +13,7 @@ export default function SignUp() {
             <div className={styles.gmContainer}>
             <div className={styles.form}>
                 <center><h1>Log In</h1></center>
-                <AuthForm />
+                <AuthForm login={true} />
                 <a className={styles.formLeft} href="/signUp">Sign Up</a>
                 <a className={styles.formRight} href="/passwordRestore">I'm forgot password</a>
                 </div>

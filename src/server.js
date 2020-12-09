@@ -1,8 +1,6 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import koaStatic from 'koa-static';
-import koaSend from 'koa-send';
-import render from 'koa-ejs';
 import path from 'path';
 import logger from './services/Logs';
 import { router } from './routes';
@@ -14,15 +12,6 @@ import koaCors from 'koa-cors';
 mongoose.connect(config.connectToDB, {useNewUrlParser: true});
 
 const app = new Koa();
-
-render(app, {
-  root: path.join(__dirname, 'frontend/pages'),
-  layout: false,
-  viewExt: 'html',
-  cache: false,
-  debug: false
-});
-
 
 app.proxy = true;
 app.silent = false;
@@ -42,9 +31,9 @@ app.use(bodyParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(router.routes()).use(router.allowedMethods());
-app.use(koaStatic(path.join(process.cwd(), 'src', 'frontend', '.next', 'server'), {
+app.use(koaStatic(path.join(process.cwd(), 'client'), {
 }),);
-
+  
 // app.use(koaStatic(path.join(process.cwd(), 'src', 'frontend', 'dist'), {
 //         immutable: true
 //     }),
