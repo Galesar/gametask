@@ -6,21 +6,30 @@ import { useHttp } from '../../hooks/useHttp';
 import styles from './index.module.css';
 
 export default function Dashboard() {
-    const [items, setItems] = useState([]);
     const [background, setBackground] = useState('');
     const {login, logout, userID, token} = useAuth();
     const {loading, request, error} = useHttp();
     const [userData, setUserData] = useState({});
+    const [userProjectData, setUserProjectData] = useState([{
+        active: 'new'
+    }]);
+
+    const [init, setInit] = useState(false)
 
     useEffect(() => {
-        items.map((item, index) => {
+        getUserProjectData();
+        getUserData();
+        setInit(true);
+        console.log(userProjectData)
+    }, [init])
+
+    useEffect(() => {
+        userProjectData.map((item, index) => {
             if(item.active == true) {
-                setBackground(item.pageBackground)
+                setBackground(item.background)
             }
         })
-        getUserData()
-        console.log(userData)
-    }, [items])
+    }, [userProjectData])
 
     const getUserData = async () => {
         try {
@@ -32,8 +41,29 @@ export default function Dashboard() {
         } catch (error) {}
     }
 
-    const initItems = (array) => {
-        setItems(array);
+    const getUserProjectData = async () => {
+        const defaultData = {
+            active: 'new'
+        };
+        try {
+            let tempToken = JSON.stringify(token);
+            const data = await request('/api/taskManager/projects/getUserProjects', 'GET', undefined, {
+                access_token: tempToken
+            })
+            setUserProjectData(() => {
+                data.push(defaultData);
+                for(let i = 0; i < data.length; i++) {
+                    if(i === 0) {
+                        data[i].active = true;
+                    }
+                    else if(data[i].active !== 'new') {
+                        data[i].active = false;
+                    }
+                    data[i].id = i;
+                }
+                return data;
+            })
+        } catch (error) {}
     }
 
     return(
@@ -71,7 +101,7 @@ export default function Dashboard() {
              `}
             </style>
             {
-                items.map((item, index) => {
+                userProjectData.map((item, index) => {
                     if(item.active == true) {
                         return(
                             <div className="background-Page-Active"> </div>
@@ -86,7 +116,7 @@ export default function Dashboard() {
         <AvatarCircle avatar={userData.avatar} name={userData.email} url="/profile/1" />
         </div>
         <div className={styles.carouselContainer}>
-        <ProjectCarousel updateBackground={initItems}/>
+        <ProjectCarousel userData={userData} userProjectData={userProjectData} setUserProjectData={setUserProjectData} updateBackground={setBackground}/>
         </div>
     </div>
     )

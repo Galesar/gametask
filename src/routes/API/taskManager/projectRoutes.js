@@ -57,9 +57,9 @@ projectRouter.post('/removeProject', async (ctx, next) => {
     (ctx, next);
 });
 
-projectRouter.get('/getUserProjects', async (ctx, next) => {
+projectRouter.get('/getProjectsByUserOwner', async (ctx, next) => {
     await authorization(ctx, async (user) => {
-        await projectAPI.getUserProjectsByUserId(user._id).then(result => {
+        await projectAPI.getUserOwnerProjectsByUserId(user._id).then(result => {
             let data = [];
             for(let i = 0; i < result.length; i++) {
                 if(result[i].isArchived == false) {
@@ -67,7 +67,6 @@ projectRouter.get('/getUserProjects', async (ctx, next) => {
                 }
             }
             ctx.body = {
-                userID: user._id,
                 data: data
             };
         })
@@ -85,7 +84,11 @@ projectRouter.get('/changeProjectById', async (ctx, next) => {
     (ctx, next);
 });
 
-projectRouter.get('/testConnection', async (ctx, next) => {
-    ctx.status = 200;
-    ctx.body = {message: 'Test Connection'};
+projectRouter.get('/getUserProjects', async (ctx, next) => {
+    await authorization(ctx, async (user) => {
+        await projectAPI.getUserProjects(user.projects).then(result => {
+            ctx.body = result
+        });
+    })
+    (ctx, next);
 })

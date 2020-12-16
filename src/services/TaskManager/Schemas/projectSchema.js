@@ -21,6 +21,16 @@ const projectSchema = new Schema({
         required: true,
         default: false,
         index: true
+    },
+    background: {
+        type: String,
+        required: true,
+        default: '/gameTask.png' 
+    },
+    preview: {
+        type: String,
+        required: true,
+        default: '/gameTask.png'
     }
 }, {
     timestamps: true

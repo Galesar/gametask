@@ -118,7 +118,6 @@ export function authorization(ctx, callbackSucces) {
 export async function getAuthTokenFromCookies(ctx) {
     let access_token;
     const refresh_token = ctx.cookies.get('refresh_token');
-    console.log(ctx.request.header.access_token)
     if(ctx.request.header.access_token !== undefined) {
     access_token = JSON.parse(ctx.request.header.access_token);
     }

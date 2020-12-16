@@ -6,8 +6,8 @@ export default function ProjectCard({name, active, backgroundStyle}) {
              <div>
                 <style jsx>{`
                     .projectBackground {
-                     background: linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), ${backgroundStyle} no-repeat center;
-                     background-size: cover;
+                     background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8) ), url('${backgroundStyle}') no-repeat center !important;
+                     background-size: cover!important;
 
                     }
              `}</style>
@@ -43,8 +43,8 @@ export default function ProjectCard({name, active, backgroundStyle}) {
          <div>
             <style jsx>{`
                 .projectBackground {
-                background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), ${backgroundStyle} no-repeat center;
-                background-size: cover;
+                background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url('${backgroundStyle}') no-repeat center;
+                background-size: cover!important;
                 }
             `}</style>
             <div className={`${styles.projectCard} ${styles.background} projectBackground`} ></div>

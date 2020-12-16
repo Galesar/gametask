@@ -6,7 +6,7 @@ import logger from '../Logs';
 const objectModel = mongoose.model('project', projectSchema);
 class ProjectAPI extends apiFacade {
 
-    async getUserProjectsByUserId(_id) {
+    async getUserOwnerProjectsByUserId(_id) {
         return await this.objectModel.find({owner: _id}, (err, data) => {
             if(err) logger.error(err);
             return data;
@@ -19,6 +19,17 @@ class ProjectAPI extends apiFacade {
                 await callback(user);
             }
         }
+    }
+
+    async getUserProjects(projects) {
+       const projectsArray = [];
+       for (let i = 0; i < projects.length; i++) {
+        let tempData = await this.returnObjectById(projects[i]).then(result => {
+            return result
+        })
+        projectsArray.push(tempData);
+       }
+       return projectsArray;
     }
 }
 

@@ -47,7 +47,6 @@ export class apiFacade{
     }
 
     returnObjectById(_id) {
-        console.log('returnObjectById _id:' + _id);
         return this.objectModel.findById(_id, (err, data) => {
             if (err) logger.error(err);
             return data;
