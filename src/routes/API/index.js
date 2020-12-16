@@ -5,6 +5,7 @@ import {getAuthTokenFromCookies} from '../../services/Auth';
 
 export const apiRouter = new Router({prefix: '/api'});
 
+
 apiRouter.use(async (ctx, next) => {
     await getAuthTokenFromCookies(ctx)
         .then((result) => {
@@ -12,6 +13,10 @@ apiRouter.use(async (ctx, next) => {
             exports.authToken = authToken;
         });
     return next();
+});
+
+apiRouter.get('/testConnection', async ctx => {
+    ctx.body = 'Nani'
 })
 
 apiRouter

@@ -12,7 +12,7 @@ export default function AuthForm(props) {
     const sendData = async () => {
         if(props.register === true)  {
             try {
-                const data = await request(`http://localhost:8080/api/auth/register`, 'POST', {email: email, password: password});
+                const data = await request(`/api/auth/register`, 'POST', {email: email, password: password});
                 console.log(data);
             } catch (error) {
         }}

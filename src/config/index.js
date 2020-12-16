@@ -7,7 +7,7 @@ class Config {
         this.loggerLevel = process.env.LOGGER_LEVEL || 'info';
         this.httpPort = 8080;
         this.loggerName = `http-server-localhost:${this.httpPort}`;
-        this.connectToDB = 'mongodb+srv://uLib:S2jG3210FksK@gametask.lwjdn.gcp.mongodb.net/GameTask?retryWrites=true&w=majority';
+        this.connectToDB = 'url';
 
         this.validate();
     }
