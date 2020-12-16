@@ -1,8 +1,12 @@
 import ProjectCard from '../projectCard/projectCard';
 import ProjectCardName from '../projectCardName/projectCardName';
 import styles from '../carousel/Carousel.module.css';
+import { useHttp } from '../../hooks/useHttp';
+import Router from 'next/router';
 
 export default function ProjectCarousel(props) {
+
+    const {loading, request, error} = useHttp();
 
     const changeItemsToRight = (e) => {
         props.setUserProjectData(prevState => {
@@ -53,15 +57,16 @@ export default function ProjectCarousel(props) {
 
     const changeItemToId = (index) => {
         props.setUserProjectData(prevState => {
-            console.log(prevState)
             for(let i = 0; i < prevState.length; i++) {
+                if(index === prevState.length - 1) {
+                    newProject();
+                }   
                 if(prevState.length - 1 == index) break;
                 if(prevState[i].active === true) {
                     prevState[i].active = false;
                     prevState[index].active = true;
-                    console.log(prevState[index])
                     break;
-                }   
+                }
             }
             const newArr = [...prevState];
             props.updateBackground(newArr);
@@ -69,6 +74,17 @@ export default function ProjectCarousel(props) {
         })
     }
 
+    const newProject = async () => {
+        try {
+            const tempToken = JSON.stringify(props.userToken);
+            const data = await request('/api/taskManager/projects/createProject', 'POST', undefined, {
+                access_token: tempToken
+            })
+            console.log(data);
+            Router.push(`/project/${data}`)
+        } catch (error) {}
+    }
+ 
     return(
         <div className={styles.projectSlider}>
             {

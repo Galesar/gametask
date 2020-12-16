@@ -33,13 +33,20 @@ projectRouter.post('/archivedProject', async (ctx, next) => {
 
 projectRouter.post('/createProject', async (ctx, next) => {
     await authorization(ctx, async(user) => {
-        await projectAPI.createObject(ctx.request.body).then(async result => {
+        const tempDate = new Date();
+        const projectUrl = `${tempDate.getMilliseconds()}${tempDate.getSeconds()}${tempDate.getMinutes()}${tempDate.getHours()}${tempDate.getDay()}${tempDate.getMonth()}`
+        const defaultData = {
+            name: 'Your Project',
+            owner: user._id,
+            url: projectUrl
+        }
+        await projectAPI.createObject(defaultData).then(async result => {
             await changeUser(user, {
                 projectsOwner: result[0]._id,
                 projects: result[0].id
             });
-            await teamAPI.changeObject({teams: result._id});
-            ctx.body = {message: `${result[0].name} project was created`};
+            // await teamAPI.changeObject({teams: result._id});
+            ctx.body = result[0].url;
         });
     })
     (ctx, next);

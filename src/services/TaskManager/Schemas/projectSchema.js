@@ -5,9 +5,6 @@ const projectSchema = new Schema({
         type: String,
         required: true
     },
-    img: {
-        type: String
-    },
     owner: {
         type: Schema.Types.ObjectId,
         required: true,
@@ -31,6 +28,11 @@ const projectSchema = new Schema({
         type: String,
         required: true,
         default: '/gameTask.png'
+    },
+    url: {
+        type: String,
+        required: true,
+        unique: true
     }
 }, {
     timestamps: true

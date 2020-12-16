@@ -20,7 +20,6 @@ export default function Dashboard() {
         getUserProjectData();
         getUserData();
         setInit(true);
-        console.log(userProjectData)
     }, [init])
 
     useEffect(() => {
@@ -52,6 +51,7 @@ export default function Dashboard() {
             })
             setUserProjectData(() => {
                 data.push(defaultData);
+                console.log(data);
                 for(let i = 0; i < data.length; i++) {
                     if(i === 0) {
                         data[i].active = true;
@@ -116,7 +116,7 @@ export default function Dashboard() {
         <AvatarCircle avatar={userData.avatar} name={userData.email} url="/profile/1" />
         </div>
         <div className={styles.carouselContainer}>
-        <ProjectCarousel userData={userData} userProjectData={userProjectData} setUserProjectData={setUserProjectData} updateBackground={setBackground}/>
+        <ProjectCarousel userToken={token} userProjectData={userProjectData} setUserProjectData={setUserProjectData} updateBackground={setBackground}/>
         </div>
     </div>
     )
