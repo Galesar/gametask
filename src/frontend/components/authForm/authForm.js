@@ -1,6 +1,7 @@
 import { useHttp } from '../../hooks/useHttp';
 import {useInput} from '../../hooks/useInput';
 import styles from './authForm.module.css';
+import localStore from 'store'
 
 export default function AuthForm(props) {
     const {value: email, bind: bindEmail, reset: resetEmail} = useInput('');
@@ -11,14 +12,14 @@ export default function AuthForm(props) {
     const sendData = async () => {
         if(props.register === true)  {
             try {
-                const data = await request(`/api/auth/register`, 'POST', {email: email, password: password});
+                const data = await request(`http://localhost:8080/api/auth/register`, 'POST', {email: email, password: password});
                 console.log(data);
             } catch (error) {
         }}
-        if(props.login === true) {
+        else if(props.login === true) {
             try {
                 const data = await request(`/api/auth/login`, `POST`, {email: email, password: password});
-                console.log(data);
+                localStore.set('user', data)
             } catch (error) {
                 
             }

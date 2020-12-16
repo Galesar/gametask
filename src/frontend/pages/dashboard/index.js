@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import AvatarCircle from '../../components/avatarCircle/avatarCircle';
 import ProjectCarousel from '../../components/carousel/Carousel';
+import useAuth from '../../hooks/useAuth';
+import { useHttp } from '../../hooks/useHttp';
 import styles from './index.module.css';
 
 export default function Dashboard() {
     const [items, setItems] = useState([]);
     const [background, setBackground] = useState('');
-
+    const {login, logout, userID, token} = useAuth();
+    const {loading, request, error} = useHttp();
+    const [userData, setUserData] = useState({});
 
     useEffect(() => {
         items.map((item, index) => {
@@ -14,12 +18,22 @@ export default function Dashboard() {
                 setBackground(item.pageBackground)
             }
         })
-        console.log(background)
+        getUserData()
+        console.log(userData)
     }, [items])
 
+    const getUserData = async () => {
+        try {
+            let tempToken = JSON.stringify(token);
+            const data = await request('/api/auth/getUserData', `POST`, undefined, {
+                access_token: tempToken
+            });
+            setUserData(data);
+        } catch (error) {}
+    }
 
     const initItems = (array) => {
-        setItems(array)
+        setItems(array);
     }
 
     return(
@@ -69,7 +83,7 @@ export default function Dashboard() {
                 })
             }
         <div className={styles.profile}>
-        <AvatarCircle avatar="https://www.nihilist.li/wp-content/uploads/2019/06/Naruto_Part_1.png" name="Alkes" url="/profile/1" />
+        <AvatarCircle avatar={userData.avatar} name={userData.email} url="/profile/1" />
         </div>
         <div className={styles.carouselContainer}>
         <ProjectCarousel updateBackground={initItems}/>

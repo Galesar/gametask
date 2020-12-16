@@ -116,8 +116,10 @@ export function authorization(ctx, callbackSucces) {
 }
 
 export async function getAuthTokenFromCookies(ctx) {
-    const Token = ctx.cookies.get('refresh_token');
-    if (Token) return await Token;
+    const refresh_token = ctx.cookies.get('refresh_token');
+    const access_token = JSON.parse(ctx.request.header.access_token);
+    if(access_token) return await access_token.token;
+    else if (refresh_token) return await refresh_token;
     else return await false;
 }
 
@@ -152,17 +154,17 @@ async function checkPassword(password, email) {
     })
 }
 
-async function checkValidToken(user, ctx) {
-    const currentDate = new Date()
+function checkValidToken(user, ctx) {
+    const currentDate = new Date();
     const refreshToken = ctx.cookies.get('refresh_token');
-    const accessToken = ctx.cookies.get('access_token');
-    if(user.accessToken.token != accessToken || user.accessToken.dateTo <= currentDate) {
-        ctx.status = 403;
-        ctx.redirect('/api/auth/token-exchanged');
-    }
-    if(user.refreshToken.token != refreshToken || user.refreshToken.dateTo <= currentDate) {
-        ctx.status = 403;
-        ctx.redirect('/api/auth');
-    }
+    const accessToken = ctx.request.headers.access_token;
+    // if(user.accessToken.token != accessToken || user.accessToken.dateTo <= currentDate) {
+    //     ctx.status = 403;
+    //     ctx.redirect('/api/auth/token-exchanged');
+    // }
+    // else if(user.refreshToken.token != refreshToken || user.refreshToken.dateTo <= currentDate) {
+    //     ctx.status = 403;
+    //     ctx.redirect('/api/auth');
+    // }
     return true;
 }

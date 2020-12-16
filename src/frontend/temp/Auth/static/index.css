@@ -1,0 +1,81 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+.logout-button {
+    text-align: right;
+}
+
+.toast {
+    background-color: #e7a580!important;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: url(kioto-b.jpg) fixed;
+    background-size: cover;
+}
+
+.login-box{
+    width: 280px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+
+}
+
+.login-box h1{
+    float:left;
+    font-size: 40px;
+    border-bottom: 6px solid #e7a580;
+    margin-bottom: 50px;
+    padding: 13px 0;
+}
+
+svg.svg-inline--fa {
+    margin: 10px;
+}
+
+.input-login-box {
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 8px 0;
+    display: inline-flex;
+}
+
+input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #e7a580;
+    box-shadow: 0 1px 0 0 #e7a580;
+}
+
+.input-login-box i {
+    width: 26px;
+    float: left;
+    text-align: center;
+}
+
+.input-login-box input {
+    border: none;
+    outline: none;
+    background: none;
+    color: white;
+    font-size: 18px;
+    width: 80%;
+    float:left;
+    margin: 0 10px;
+}
+
+.btn-login-box {
+    width: 100%;
+    background: none;
+    border: 2px solid #e7a580;
+    padding: 5px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    margin: 12px 0;
+}

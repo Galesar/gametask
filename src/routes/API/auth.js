@@ -24,11 +24,15 @@ authRouter.get('/token-exchanged', async (ctx, next) => {
                 dateTo: dateTo
             }
             await changeUser(user, {accessToken})
-            // ctx.redirect('http://localhost:3000/dashboard');
+            const tempData = {
+                id: user._id,
+                access_token: accessToken
+            }
+            ctx.body = tempData;
            })(ctx, next);
 })
 
-authRouter.post('/', async (ctx, next)=> {
+authRouter.post('/login', async (ctx, next)=> {
     await passport.authenticate('local', function (err, user) {
         if(err) logger.error(err);
         if (user==false) {
@@ -87,8 +91,17 @@ authRouter.post('/register', async (ctx, next) => {
     }(ctx, next);
 })
 
-authRouter.get('/testConnection', async (ctx, next) => {
-    await authorization(ctx, async(user) => {
-       await changeUser(user, {email: 'mama@mail.ru'})
-    })(ctx, next);
+authRouter.post('/getUserData', async (ctx, next) => {
+    await authorization(ctx, async (user) => { 
+        const tempUser = { 
+            avatar: user.avatar, 
+            email: user.email,
+            nickname: user.nickname,
+            isAdmin: user.isAdmin,
+            projects: user.projects,
+            projectsOwner: user.projectsOwner,
+            teams: user.teams
+        }
+        ctx.body = tempUser;
+    })(ctx, next)
 })

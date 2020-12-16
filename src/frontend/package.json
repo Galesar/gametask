@@ -19,6 +19,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-elastic-carousel": "^0.9.5",
+    "store": "^2.0.12",
     "styled-components": "^5.2.1"
   },
   "proxy": "http://localhost:8080"

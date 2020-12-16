@@ -37,3 +37,7 @@ clientRouter.get('/project/:project/:board', async ctx => {
 clientRouter.get('/project/:project/:board/:task', async ctx => {
     ctx.body = await renderFile('project/[project]/[board]/[task].html')
 })
+
+clientRouter.get('/dashboard', async ctx => {
+    ctx.body = await renderFile('dashboard.html')
+})
