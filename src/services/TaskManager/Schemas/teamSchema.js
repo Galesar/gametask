@@ -5,7 +5,10 @@ const teamSchema = new Schema({
         type: String,
         required: true
     },
-    img: {
+    preview: {
+        type: String
+    },
+    background: {
         type: String
     },
     members: {

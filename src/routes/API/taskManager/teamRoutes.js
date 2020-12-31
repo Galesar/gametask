@@ -6,33 +6,6 @@ import projectAPI from '../../../services/TaskManager/projectAPI';
 
 export const teamRouter = new Router({prefix: '/teams'});
 
-// teamRouter.use(async (ctx, next) => {
-//     const data = {
-//         name: "Developers Team",
-//         members: [
-//             {
-//                 email: '88medved200188@gmail.com', 
-//                 _id: '5f7fa7b99af89028b4bda876',
-//                 owner: false,
-//                 moderator: true
-//             },
-//             {
-//                 email: 'nazarov@ucoz-team.net', 
-//                 _id: '5f7fa874e5d6ed290cd16ae9',
-//                 owner: true,
-//                 moderator: true
-//             }
-//         ],
-//         projects: ['5f935ab82c6348033c679ccb'],
-//         boards: ['5f9810d8463ebf1fb06ce9ff', '5f981101d6f4bb1ea83e6c46'],
-//         tasks: ['5f989de6c1ef4125d42bdff8'],
-//         description: 'Change your life'
-//     };
-//     await teamAPI.createObject(data);
-//     return next();
-// })
-
-
 teamRouter.post('/getTeamById', async (ctx, next) => {      
     await authorization(ctx, async (user) => {
         await teamAPI.authMember(user, ctx.request.body._id, async (team) => {
@@ -42,6 +15,15 @@ teamRouter.post('/getTeamById', async (ctx, next) => {
     (ctx, next)
 })
 
+teamRouter.post('/getTeam', async (ctx, next) => {
+    await authorization(ctx, async (user) => {
+        await teamAPI.returnObject(ctx.request.body).then(result => {
+            ctx.body = result;
+        })
+    })
+    (ctx, next)
+})
+ 
 teamRouter.post('/createTeam', async (ctx, next) => {               
     await authorization(ctx, async(user) => {
         projectAPI.returnObjectById(ctx.request.body.projectID).then(result => {

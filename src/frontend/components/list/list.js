@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TaskCard from '../taskCard/taskCard'
 import styles from './list.module.css'
 
-export default function List({list, tasks}) {
+export default function List({list, tasks, action, newItem}) {
 
     const [active, setActive] = useState(false);
 
@@ -15,7 +15,7 @@ export default function List({list, tasks}) {
 
 
     const renderTasks = () => {
-        if(active) { 
+        if(active && tasks) { 
        return tasks.map((item, index) => {
             return (
                 <TaskCard ownerImg={item.img} taskData={item} />
@@ -23,7 +23,7 @@ export default function List({list, tasks}) {
         })}
     }
 
-
+    if(!newItem)
     return (
         <div>
         <button className={styles.button} onClick={changeActiveStatus}>
@@ -33,6 +33,14 @@ export default function List({list, tasks}) {
         <div className={styles.listContainer}>
             {renderTasks()}
         </div>
+        </div>
+    )
+    else return (
+        <div>
+        <button className={styles.button} onClick={e => {action()}}>
+            <span className={styles.listTitle}>{list.name}</span>
+            <span className={styles.newButton}>	&#10133;</span>
+        </button>
         </div>
     )
 }

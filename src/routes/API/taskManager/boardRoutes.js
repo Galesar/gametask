@@ -17,8 +17,18 @@ export const boardRouter = new Router({prefix: '/boards'});
 boardRouter.post('/createBoard', async (ctx, next) => {
     await authorization(ctx, async (user) => {
         await boardAPI.authUser(ctx.request.body, user, async () => {
-            await boardAPI.createObject(ctx.request.body).then(result => {
-            ctx.body = {message: `Board ${result._id} was succesfull created with code ${ctx.status = 200}`}});
+            const tempDate = new Date();
+            const boardUrl = `${tempDate.getSeconds()}${tempDate.getMinutes()}${tempDate.getHours()}${tempDate.getDay()}${tempDate.getMonth()}`;
+            const newBoardData = { 
+                name: 'Your board',
+                projectOwner: ctx.request.body.projectOwner,
+                url: boardUrl,
+                preview: 'https://lol-skin.weblog.vc/img/wallpaper/tiles/lol-new-champion-Janna_13.jpg?1607890698',
+                background: 'http://img0.reactor.cc/pics/post/full/Janna-League-of-Legends-%D1%84%D1%8D%D0%BD%D0%B4%D0%BE%D0%BC%D1%8B-ssolthss-45-4991946.jpeg'
+            }
+            await boardAPI.createObject(newBoardData).then(result => {
+            ctx.body = result.url;
+            })
         })
     })
     (ctx, next)
@@ -54,8 +64,9 @@ boardRouter.post('/archivedBoard', async (ctx, next) => {
 
 boardRouter.post('/getBoardById', async (ctx, next) => {
     await authorization(ctx, async(user) => {
+        console.log(ctx.request.body)
         await boardAPI.authUser(ctx.request.body, user, async () => {
-            await boardAPI.returnObjectById(ctx.request.body._id).then(result => {
+            await boardAPI.returnObject({url: ctx.request.body.boardUrl}).then(result => {
                 ctx.body = result;
             })
         })
@@ -76,8 +87,8 @@ boardRouter.post('/getBoardByTeam', async (ctx, next) => {
 
 boardRouter.post('/getBoardByProject', async (ctx, next) => {
     await authorization(ctx, async(user) => {
-        await boardAPI.authUser(ctx.request.body, user, async () => {
-            await boardAPI.returnObject({projectOwner: ctx.request.body.projectOwnerId}).then(result => {
+        await boardAPI.authUser(ctx.request.body, user, async (projectOwner) => {
+            await boardAPI.returnObject({projectOwner: projectOwner._id}).then(result => {
                 ctx.body = result;
             })
         })

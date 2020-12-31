@@ -8,7 +8,6 @@ export default function ProjectCard({name, active, backgroundStyle}) {
                     .projectBackground {
                      background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8) ), url('${backgroundStyle}') no-repeat center !important;
                      background-size: cover!important;
-
                     }
              `}</style>
              <div className={`${styles.projectCard} ${styles.active} projectBackground`}></div></div>

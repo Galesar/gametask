@@ -77,7 +77,7 @@ export default function ProjectCarousel(props) {
     const newProject = async () => {
         try {
             const tempToken = JSON.stringify(props.userToken);
-            const data = await request('/api/taskManager/projects/createProject', 'POST', undefined, {
+            const data = await request('http://localhost:8080/api/taskManager/projects/createProject', 'POST', undefined, {
                 access_token: tempToken
             })
             console.log(data);

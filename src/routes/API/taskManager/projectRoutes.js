@@ -34,7 +34,7 @@ projectRouter.post('/archivedProject', async (ctx, next) => {
 projectRouter.post('/createProject', async (ctx, next) => {
     await authorization(ctx, async(user) => {
         const tempDate = new Date();
-        const projectUrl = `${tempDate.getMilliseconds()}${tempDate.getSeconds()}${tempDate.getMinutes()}${tempDate.getHours()}${tempDate.getDay()}${tempDate.getMonth()}`
+        const projectUrl = `${tempDate.getSeconds()}${tempDate.getMinutes()}${tempDate.getHours()}${tempDate.getDay()}${tempDate.getMonth()}`
         const defaultData = {
             name: 'Your Project',
             owner: user._id,
@@ -98,4 +98,13 @@ projectRouter.get('/getUserProjects', async (ctx, next) => {
         });
     })
     (ctx, next);
+})
+
+projectRouter.post('/getProject', async (ctx, next) => {
+    await authorization(ctx, async(user) => {
+        await projectAPI.returnObject(ctx.request.body).then(result => {
+            ctx.body = result
+        })
+    })
+    (ctx, next)
 })

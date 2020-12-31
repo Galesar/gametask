@@ -1,12 +1,12 @@
 
-export default function SquareCard({image, url, size = {width: '130px', height: '130px'}, background = `url(${image})`}) {
+export default function SquareCard({image, url, size = {width: '130px', height: '130px'}, background = `url(${image})`, action}) {
     return(
-        <a href={url}><div className='card'>
+        <a href={url}><div onClick={e=> {action()}} className='card'>
         <style jsx>
             {`
             .card {
                 background: ${background};
-                background-size: cover;
+                background-position-x: center;
                 border-width: 0px;
                 border-color: rgb(0, 0, 0);
                 border-style: solid;

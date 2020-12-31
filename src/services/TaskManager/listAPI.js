@@ -4,7 +4,7 @@ import listSchema from './Schemas/listSchema';
 import boardAPI from './boardAPI';
 
 const objectModel = mongoose.model('list', listSchema);
-// авторизация: ищем лист, смотрим boardOwner, смотрим boardOwner.Teams.
+// авторизация: ищем лист, смотрим boardOwner, смотрим  board.teams
 // Сравниваем user.Teams и boardOwner.Teams
 
 // data = { 
@@ -18,15 +18,15 @@ const objectModel = mongoose.model('list', listSchema);
 
 class ListAPI extends apiFacade{
     async authMember(user, data, callback) {
-        await boardAPI.returnObjectById(data.boardOwner).then(result => {
-            for(let i = 0; i < result.teams.length; i++) {
-                for (let j = 0; j < user.teams.length; j++) {
-                    if(result.teams[i].equals(user.teams[j])) {
-                        console.log(`${user.teams[j]} | ${result.teams[i]}`)
-                        return callback();
-                    }
-                }
-            }
+        await boardAPI.returnObject({url: data.boardUrl}).then(result => {
+            // for(let i = 0; i < result.teams.length; i++) {
+            //     for (let j = 0; j < user.teams.length; j++) {
+            //         if(result.teams[i].equals(user.teams[j])) {
+            //             return callback();
+            //         }
+            //     }
+            // }\
+            return callback(result[0])
         })
     }
 }

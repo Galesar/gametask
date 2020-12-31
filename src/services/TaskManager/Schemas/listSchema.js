@@ -10,10 +10,6 @@ const listSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true
     },
-    projectOwner: {
-        type: Schema.Types.ObjectId,
-        required: true
-    },
     isArchived: {
         type: Boolean,
         required: true,

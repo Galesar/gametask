@@ -3,51 +3,117 @@ import ObjectContainer from "../../../components/objectContainer/objectContainer
 import SettingsButton from "../../../components/settingsButton/settingsButton";
 import SquareCard from "../../../components/squareCard/squareCard";
 import styles from './index.module.css';
-import { useRouter } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import StatContainer from "../../../components/statContainer/statContainer";
+import { useEffect, useState } from "react";
+import { useHttp } from "../../../hooks/useHttp";
+import useAuth from "../../../hooks/useAuth";
 
 export default function Project() {
 
     const router = useRouter();
     const { project } = router.query
 
-    const data = {
-        projectName: 'Game Task',
-        background: 'https://cdna.artstation.com/p/assets/images/images/001/708/712/medium/emmanuel-shiu-xwing-eshiu-2k.jpg?1451414006',
-        boards: [
-            {
-                id: '26232020',
-                background: 'https://www.frontendarts.com/service/images/cloud-adopt.jpg'
-            },
-            {
-                id: '26151120',
-                background: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVzWS3tgeURxWKt95thgsT3V7NUJKvJBrqqw&usqp=CAU'
-            },
-            {
-                id: '12311200',
-                background: 'https://render.fineartamerica.com/images/rendered/default/print/7/8/break/images/artworkimages/medium/1/burning-money-reuven-gayle.jpg'
-            }
-        ],
-        teams: [
-            {
-                id: '123456',
-                background: 'https://i.pinimg.com/originals/03/38/0c/03380cf66fd8aa8f55bb3476648e54ca.jpg'
-            },
-            {
-                id: '542552',
-                background: 'https://www.dragonspears.com/hubfs/images/blog/the-sre-model-and-its-business-implications-1260x630px.png'
-            },
-        ]        
+    const [projectData, setProjectData] = useState({});
+    const {loading, request} = useHttp();
+    const {token} = useAuth();
+    const tempToken = JSON.stringify(token);
+
+    const [boardsData, setBoardsData] = useState();
+    const [teamsData, setTeamsData] = useState();
+
+    const newBoard = async () => {
+        try {
+            const data = await request('http://localhost:8080/api/taskManager/boards/createBoard', 'POST', {projectOwner: projectData._id}, {
+                access_token: tempToken
+            })
+            Router.push(`/project/${project}/${data}`);
+        } catch (error) {console.log(error)}
     }
 
-    const arrObjects = (array) => {
+    const tempObject = {
+        url: undefined,
+        preview: 'https://www.michaelpage.co.uk/sites/michaelpage.co.uk/files/styles/large/public/Image%20600%20x%20387_1.jpg?itok=qX6nf4xW',
+        onClick: newBoard
+    }
+
+    useEffect(() => {
+        getProjectData();
+    }, [project])
+
+    useEffect(() => {
+        getBoardsData();
+        getTeamsData();
+    }, [projectData])
+
+    const getProjectData = async () => {
+        try {
+            const data = await request('http://localhost:8080/api/taskManager/projects/getProject', 'POST', {url: project}, {
+                access_token: tempToken
+            })
+            setProjectData({...data[0]});
+        } catch (error) {}
+    }
+
+    const arrObjects = (array, type) => {
         const arrObjects = [];
-        array.map((item, index) => {
-            arrObjects.push(<SquareCard image={item.background} url={`/board/${item.id}`} />)
+        if(array) {
+            array.map((item, index) => {
+            if(!item.url) {
+                arrObjects.push(<SquareCard image={item.preview} url={''} action={item.onClick} />)
+            }
+            else if(type === 'boards') {
+            arrObjects.push(<SquareCard image={item.preview} url={`/project/${project}/${item.url}`} action={item.onClick} />)
+            }
+            else if (type === 'teams') {
+                arrObjects.push(<SquareCard image={item.preview} url={`/team/${item.url}`} />)
+            }
         })
+        }
         return arrObjects;
     }
 
+    const getBoardsData = async () => {
+        try {
+            if(projectData) {
+            const data = await request('http://localhost:8080/api/taskManager/boards/getBoardByProject', 'POST', {projectUrl: projectData.url}, {
+                access_token: tempToken
+            })
+            setBoardsData(() => {
+                data.push(tempObject);
+                return [...data]
+            })
+        }
+        } catch (error) {console.log(error)}
+    }
+
+    const getTeamsData = async () => {
+        try {
+            if(projectData) {
+                const data = await request('http://localhost:8080/api/taskManager/teams/getTeam', 'POST', {projects: projectData._id}, {
+                    access_token: tempToken
+                })
+                setTeamsData(() => {
+                    const tempData = [];
+                    tempData.push(...data);
+                    tempData.push(tempObject);
+                    return [...tempData]
+                })
+            }
+        } catch (error) {console.log(error)}
+    }
+
+    const newTeam = async () => {
+        try {
+            const data = await request('url', 'post', undefined, {
+                access_token: tempToken
+            })
+            console.log(data);
+            Router.push(`/team/${data}`);
+        } catch (error) {console.log(error)}
+    }
+
+    if(!loading) 
     return (
         <div>
             <SettingsButton url={`/project/${project}/settings`}/>
@@ -55,7 +121,7 @@ export default function Project() {
             <StatContainer />
             </div>
             <div className={styles.projectName}>
-                <h1>{data.projectName}</h1>
+                <h1>{projectData.name}</h1>
             </div>
             
             <div className={styles.news}>
@@ -67,16 +133,16 @@ export default function Project() {
 
             <div className={styles.cardContainer}>
             <h2>Teams</h2>
-            <ObjectContainer objects={arrObjects(data.teams)}/>
+            <ObjectContainer objects={arrObjects(teamsData, 'teams')}/>
 
             <h2>Boards</h2>
-            <ObjectContainer  objects={arrObjects(data.boards)}/>
+            <ObjectContainer  objects={arrObjects(boardsData, 'boards')}/>
             </div>
 
             <style jsx global>
                 {`
                 body{
-                    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8) ), url('${data.background}') no-repeat !important;
+                    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8) ), url('${projectData.background}') no-repeat !important;
                     -webkit-background-size: cover;
                     -moz-background-size:  cover;
                     -o-background-size: cover;
@@ -87,4 +153,8 @@ export default function Project() {
             </style>
         </div>
     )
+
+    else return (<div>
+        loading
+    </div>)
 }

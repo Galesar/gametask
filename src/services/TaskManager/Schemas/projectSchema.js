@@ -13,6 +13,9 @@ const projectSchema = new Schema({
     teams: {
         type: [Schema.Types.ObjectId]
     },
+    boards: {
+        type: [Schema.Types.ObjectId]
+    },
     isArchived: {
         type: Boolean,
         required: true,

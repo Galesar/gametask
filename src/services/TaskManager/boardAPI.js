@@ -9,11 +9,11 @@ const objectModel = mongoose.model('board', boardSchema);
 
 class BoardAPI extends apiFacade{
     async authUser(data, user, callback) {
-        await projectAPI.returnObjectById(data.projectOwner).then(async result => {
+        await projectAPI.returnObject({url: data.projectUrl}).then(async result => {
             for(let i = 0; i < user.teams.length; i++) {
-                for (let j = 0; j < result.teams.length; j++) {
-                    if(user.teams[i].equals(result.teams[j])) {
-                        await callback();
+                for (let j = 0; j < result[0].teams.length; j++) {
+                    if(user.teams[i].equals(result[0].teams[j])) {
+                        await callback(result[0]);
                     }
                 }
             }

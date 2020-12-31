@@ -1,4 +1,3 @@
-import { resolve } from 'core-js/fn/promise';
 import logger from '../Logs';
 
 export class apiFacade{
@@ -6,6 +5,9 @@ export class apiFacade{
         this.objectModel = objectModel
     }
 
+    /**
+     * @param  {object} reqData
+     */
     createObject(...reqData) {
         return new Promise((resolve, reject) => {
             return this.objectModel.create(reqData, (err, data) => {
@@ -28,6 +30,11 @@ export class apiFacade{
             logger.info(`${data._id} was removed from DB`);
         })
     }
+
+    /**
+     * @param  {object} reqData { _id: objectId, data: { ... }}
+     * @param  {array} dataMap  [ [ '0', {reqData} ] ] 
+     */
 
     changeObject(...reqData) {
         this.objectModel.findOne({_id: reqData[0]._id}, (err, data) => {

@@ -33,7 +33,7 @@ export default function Dashboard() {
     const getUserData = async () => {
         try {
             let tempToken = JSON.stringify(token);
-            const data = await request('/api/auth/getUserData', `POST`, undefined, {
+            const data = await request('http://localhost:8080/api/auth/getUserData', `POST`, undefined, {
                 access_token: tempToken
             });
             setUserData(data);
@@ -46,7 +46,7 @@ export default function Dashboard() {
         };
         try {
             let tempToken = JSON.stringify(token);
-            const data = await request('/api/taskManager/projects/getUserProjects', 'GET', undefined, {
+            const data = await request('http://localhost:8080/api/taskManager/projects/getUserProjects', 'GET', undefined, {
                 access_token: tempToken
             })
             setUserProjectData(() => {

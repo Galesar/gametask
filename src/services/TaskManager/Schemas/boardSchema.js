@@ -5,8 +5,11 @@ const boardSchema = new Schema({
         type: String,
         required: true
     },
-    img: {
+    background: {
         type: String,
+    },
+    preview: {
+        type: String
     },
     projectOwner: {
         type: Schema.Types.ObjectId,
@@ -29,7 +32,12 @@ const boardSchema = new Schema({
     lists: [{
         name: String,
         _id: Schema.Types.ObjectId
-    }]
+    }],
+    url: {
+        type: String,
+        required: true,
+        unique: true
+    }
 }, {
     timestamps: true
 })

@@ -8,12 +8,19 @@ export const listRouter = new Router({prefix: '/lists'});
 
 listRouter.post('/createList', async (ctx, next) => {               // any boardMember
     await authorization(ctx, async(user) => {
-        await listAPI.authMember(user, ctx.request.body, async () => {
-            await listAPI.createObject(ctx.request.body).then(result => {
-                boardAPI.changeObject({data: {
-                    lists: result._id
+        await listAPI.authMember(user, ctx.request.body, async (board) => {
+            const defaultData = {
+                name: 'Your List',
+                boardOwner: board._id
+            };
+            await listAPI.createObject(defaultData).then(async result => {
+                const resultId = result[0]._id
+                await boardAPI.changeObject({
+                    _id: board._id,
+                    data: {
+                        lists: resultId
                 }});
-                ctx.body = {message: `List ${result._id} was succesfull created with code ${ctx.status = 200}`};
+                ctx.body = {message: `List ${result[0]._id} was succesfull created with code ${ctx.status = 200}`};
             })
         })
     })
@@ -64,6 +71,13 @@ listRouter.post('/removedListById', async (ctx, next) => {
     (ctx, next);
 })
 
-listRouter.get('/testConnection', async (ctx, next) => {
-    ctx.body = 'Hello nibba'
+listRouter.post('/returnListsByBoard', async (ctx, next) => {
+    await authorization(ctx, async(user) => {
+        await listAPI.authMember(user, ctx.request.body, async (boardOwner) => {
+            await listAPI.returnObject({boardOwner: boardOwner._id}).then(result => {
+                ctx.body = result
+            })
+        })
+    })
+    (ctx, next)
 })
