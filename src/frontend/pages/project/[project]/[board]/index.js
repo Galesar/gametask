@@ -13,42 +13,42 @@ export default function Board() {
     const {project, board} = router.query;
 
     const {token} = useAuth();
-    const {loading, error, request} = useHttp()
+    const {loading, error, request} = useHttp();
     const [boardData, setBoardData] = useState({});
     const [listsData, setListsData] = useState([{}]);
     
     /**
+     * @param {array} taskData: {name, ownerPreview, url}
      * @param {string} name
      * @param {string} ownerPreview - imageUrl
-     * @param {array} taskData: {name, ownerPreview}
      */
     const [tasksData, setTasksData] = useState([{}]);
     const tempToken = JSON.stringify(token);
 
     useEffect(() => {
         getBoardData();
-    }, [board])
-
-    useEffect(() => {
         getLists();
-    }, [boardData])
+    }, [board])
 
     const newList = async () => {
         try {
-            const data = await request('http://localhost:8080/api/taskManager/lists/createList', 'POST', {
+           await request('http://localhost:8080/api/taskManager/lists/createList', 'POST', {
                 boardUrl: board
             }, {
                 access_token: tempToken
             });
-            console.log(data);
         } catch (error) {}
-    }
+    };
 
-    const tempObject = {
+    const tempListObject = {
         name: 'New list',
         new: true,
         action: newList
-    }
+    };
+    const tempTaskObject = {
+        name: "New task",
+        new: true
+    };
 
     const getLists = async () => { 
         try {
@@ -57,18 +57,31 @@ export default function Board() {
             }, {
                 access_token: tempToken
             })
-            setListsData(() => {
-                data.push(tempObject);
-                console.log(data)
-                return [...data];
-            });
+            data.map(async item => {
+                const tempVar = await getTasksData(item);
+                item.tasks = [...tempVar];
+                item.tasks.push(tempTaskObject);
+            })
+            data.push(tempListObject);
+            setListsData([...data]);
+        } catch (error) {}
+    };
+
+    const getTasksData = async (item) => {
+        try {
+            const data = await request('http://localhost:8080/api/taskManager/tasks/getTasksByListOwner', 'POST', {
+                boardUrl: board,
+                listOwner: item._id
+            }, {
+                access_token: tempToken
+            })
+            return data;
         } catch (error) {}
     }
 
     const getBoardData = async () => {
         try {
-            console.log(board)
-            const data = await request('http://localhost:8080/api/taskManager/boards/getBoardById', 'POST', { 
+            const data = await request('http://localhost:8080/api/taskManager/boards/getBoardByUrl', 'POST', { 
                 boardUrl: board,
                 projectUrl: project
             }, {
@@ -76,38 +89,51 @@ export default function Board() {
             });
             setBoardData({...data[0]});
         } catch (error) {}
-    }
+    };
 
     const listRender = () => {
-        if(listsData){
+        if(listsData && Array.isArray(listsData[0].tasks)) {
         return listsData.map(item => {
             if(item.new) { 
-                return <List list={{name: item.name}} action={item.action} newItem={item.new} />
+                return <List action={item.action} newItem={item.new} createTask={createTask} />
             }
-            else return <List list={{name: item.name}} />
+            else if(item.tasks) {
+            return <List createTask={createTask} item={item}  boardUrl={board}/>
+            }
         })}
-    }
+    };
+
+    const createTask = async (list) => {
+        try {
+           await request('http://localhost:8080/api/taskManager/tasks/createTask', 'POST', {
+                listID: list._id,
+                boardUrl: board
+
+            }, {
+                access_token: tempToken
+            })
+        } catch (error) {}
+    };
 
     if(!loading)
     return (
         <div>
-            <SettingsButton url={`/${project}/${board}/settings`} />
             <style jsx global>
-                {`
-                body {
-                    overflow-y:auto;
-                    background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8) ), url('${boardData.background}') no-repeat !important;
-                    -webkit-background-size: cover!important;
-                    -moz-background-size:  cover!important;
-                    -o-background-size: cover!important;
+            {`
+            body {
+                overflow-y:auto;
+                background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8) ), url('${boardData.background}') no-repeat !important;
+                -webkit-background-size: cover!important;
+                -moz-background-size:  cover!important;
+                -o-background-size: cover!important;
                 }
-                `}
+            `}
             </style>
+            <SettingsButton url={`/${project}/${board}/settings`} />
             <div className={styles.boardNameContainer}>
                 <AvatarCircle avatar={boardData.preview} />
                 <h2>{boardData.name}</h2>
             </div>
-
             <div className={styles.taskContainer}>
                 {listRender()}
             </div>

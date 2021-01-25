@@ -1,7 +1,6 @@
 import {apiFacade} from './index';
 import boardSchema from './Schemas/boardSchema';
 import mongoose from 'mongoose';
-import logger from '../Logs';
 import projectAPI from './projectAPI';
 
 

@@ -15,15 +15,15 @@ const objectModel = mongoose.model('task', taskSchema);
 
 class TaskAPI extends apiFacade{
     async authMember(user, data, callback) {
-        await boardAPI.returnObjectById(data.boardOwner).then(result => {
-            for(let i = 0; i < result.teams.length; i++) {
-                for (let j = 0; j < user.teams.length; j++) {
-                    if(result.teams[i].equals(user.teams[j])) {
-                        console.log(`${user.teams[j]} | ${result.teams[i]}`)
-                        return callback();
-                    }
-                }
-            }
+        await boardAPI.returnObject({url: data.boardUrl}).then(result => {
+            // for(let i = 0; i < result.teams.length; i++) {
+            //     for (let j = 0; j < user.teams.length; j++) {
+            //         if(result.teams[i].equals(user.teams[j])) {
+            //             return callback();
+            //         }
+            //     }
+            // }
+            return callback(result[0])
         })
     }
 }

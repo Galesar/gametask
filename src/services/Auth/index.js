@@ -108,7 +108,7 @@ export function authorization(ctx, callbackSucces) {
              ctx.body = {message: 'auth is failed'};
              ctx.status = 403;
              ctx.cookies.set('refresh_token', undefined)
-             ctx.redirect('/api/auth');
+            //  ctx.redirect('/api/auth');
         } else if(checkValidToken(user, ctx))  { 
            return callbackSucces(user);
         }

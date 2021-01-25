@@ -11,17 +11,19 @@ const taskSchema = new Schema({
     comments: {
         type: [Object]
     },
-    list: {
+    listOwner: {
         type: Schema.Types.ObjectId,
         required: true
     },
     boardOwner: {
-        type: String,
+        type: Schema.Types.ObjectId,
         index: true
     },
     userOwner: {
-        type: String,
-        index: true
+        data: {
+            name: String,
+            preview: String
+        }
     },
     priority: {
         type: Number,
@@ -36,6 +38,11 @@ const taskSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    url: {
+        type: String,
+        required: true,
+        unique: true
     },
     image: String
 }, {

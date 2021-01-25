@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TaskCard from '../taskCard/taskCard'
 import styles from './list.module.css'
 
-export default function List({list, tasks, action, newItem}) {
+export default function List({action, newItem, item, createTask, boardUrl}) {
 
     const [active, setActive] = useState(false);
 
@@ -15,19 +15,42 @@ export default function List({list, tasks, action, newItem}) {
 
 
     const renderTasks = () => {
-        if(active && tasks) { 
-       return tasks.map((item, index) => {
+    if(active && item) { 
+        if(item.tasks.length === 0 ) return null;
+        else return item.tasks.map((task, index) => {
+            if(!task.new) {
             return (
-                <TaskCard ownerImg={item.img} taskData={item} />
+                <a href={`${boardUrl}/${task.url}`}>
+                <div className={styles.taskContainer}>
+                <TaskCard ownerImg={task.img} taskData={task} />
+                </div>
+                </a>
+            )}
+            else return (
+                <div onClick={e => {createTask(item)}} className={styles.taskContainer}>
+                <TaskCard ownerImg={task.img} taskData={task} />
+                </div>
             )
         })}
     }
 
-    if(!newItem)
+    if(!active && item) {
+        return (
+            <div>
+            <button className={styles.button} onClick={changeActiveStatus}>
+                <span className={styles.listTitle}>{item.name}</span>
+            </button>
+            <div className={styles.listContainer}>
+                {renderTasks()}
+            </div>
+            </div>
+        )
+    }
+    else if(!newItem && item)
     return (
         <div>
         <button className={styles.button} onClick={changeActiveStatus}>
-            <span className={styles.listTitle}>{list.name}</span>
+            <span className={styles.listTitle}>{item.name}</span>
             <div className={styles.showButtonActive}></div>
         </button>
         <div className={styles.listContainer}>
@@ -38,7 +61,7 @@ export default function List({list, tasks, action, newItem}) {
     else return (
         <div>
         <button className={styles.button} onClick={e => {action()}}>
-            <span className={styles.listTitle}>{list.name}</span>
+            <span className={styles.listTitle}>New list</span>
             <span className={styles.newButton}>	&#10133;</span>
         </button>
         </div>

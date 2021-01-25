@@ -62,7 +62,7 @@ boardRouter.post('/archivedBoard', async (ctx, next) => {
     (ctx, next)
 })
 
-boardRouter.post('/getBoardById', async (ctx, next) => {
+boardRouter.post('/getBoardByUrl', async (ctx, next) => {
     await authorization(ctx, async(user) => {
         console.log(ctx.request.body)
         await boardAPI.authUser(ctx.request.body, user, async () => {
